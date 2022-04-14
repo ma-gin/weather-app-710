@@ -2,22 +2,35 @@ import React, { useState } from "react"
 import axios from "axios"
 
 import SearchBar from "./components/SearchBar"
+import Date from "./components/Date"
+import HighLow from "./components/HighLow"
 import WeatherInfo from "./components/WeatherInfo"
 import InfoMessage from "./components/InfoMessage"
-import Date from "./components/Date"
 
 function App() {
   const [city, setCity] = useState(undefined)
+  const [data, setData] = useState(null)
 
-  const geoUrl = `http://api.openweathermap.org/data/2.5/direct?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
+  const handleInput = (e) => {
+    setCity(e.target.value.toLowerCase())
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+  }
 
   return (
     <div className="app">
-      <SearchBar />
+      <SearchBar
+        handleInput={handleInput}
+        handleSearch={handleSearch}
+        city={city}
+      />
       <Date />
-      <WeatherInfo />
+      <HighLow />
       <InfoMessage />
       <WeatherInfo />
+      <div>{city}</div>
     </div>
   )
 }
