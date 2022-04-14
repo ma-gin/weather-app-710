@@ -3,7 +3,7 @@ import React from "react"
 function InfoMessage({ weather }) {
   return (
     <div>
-      <div>{weather.description}</div>
+      <h3>{weather.description.toUpperCase()}</h3>
     </div>
   )
 }

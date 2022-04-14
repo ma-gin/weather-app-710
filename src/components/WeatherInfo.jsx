@@ -3,11 +3,10 @@ import React from "react"
 function WeatherInfo({ main }) {
   return (
     <div>
-      <h1>
+      <h1 className="center">
         {Math.floor(300 - main.temp)}
         <span>°</span>
       </h1>
-      <div>Feels Like {Math.floor(300 - main.feels_like)}°</div>
     </div>
   )
 }

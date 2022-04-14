@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import axios from "axios"
 
-import Date from "./components/Date"
 import HighLow from "./components/HighLow"
 import WeatherInfo from "./components/WeatherInfo"
 import InfoMessage from "./components/InfoMessage"
+import { Error } from "./components/Error"
 
 function App() {
   const [city, setCity] = useState("")
   const [data, setData] = useState(undefined)
-  const [date, setDate] = useState(undefined)
+  const [error, setError] = useState(false)
 
-  const now = new Date()
-  setDate(now)
-
-  useEffect(() => {}, [date])
+  const date = new Date()
 
   const handleInput = (e) => {
     setCity(e.target.value.toLowerCase())
@@ -23,17 +20,21 @@ function App() {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`
-      console.log(url)
-      axios.get(url).then((resp) => {
-        setData(resp.data)
-        console.log(resp.data)
-        setCity("")
-      })
+      axios
+        .get(url)
+        .then((resp) => {
+          setData(resp.data)
+          setCity("")
+        })
+        .catch((err) => {
+          setError(true)
+        })
     }
   }
 
   return (
     <div className="app">
+      <div className="date">{date.toDateString()}</div>
       <input
         type="text"
         value={city}
@@ -41,8 +42,8 @@ function App() {
         onChange={(e) => handleInput(e)}
         onKeyPress={handleSearch}
       />
-      <Date date={date} />
-      {data && (
+      {/* <Date /> */}
+      {!error && data && (
         <>
           <HighLow main={data.main} />
           <InfoMessage weather={data.weather[0]} />
@@ -50,6 +51,7 @@ function App() {
           <h2>{data.name}</h2>
         </>
       )}
+      {error && <Error />}
     </div>
   )
 }
