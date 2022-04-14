@@ -1,10 +1,14 @@
 import React from "react"
 
-function HighLow() {
+function HighLow({ main }) {
   return (
     <div>
-      <span>H: {}</span>
-      <span>L: {}</span>
+      <div>
+        <span className="high">High</span> {Math.floor(300 - main.temp_max)}°C
+      </div>
+      <div>
+        <span className="low">Low</span> {Math.floor(300 - main.temp_min)}°C
+      </div>
     </div>
   )
 }

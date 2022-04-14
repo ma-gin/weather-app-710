@@ -24,6 +24,7 @@ h1 {
   align-items: center;
   position: relative;
   color: #fff;
+  padding-top: 4rem;
 }
 
 .app:before {

@@ -1,10 +1,9 @@
 import React from "react"
 
-function InfoMessage() {
+function InfoMessage({ weather }) {
   return (
     <div>
-      <div>ICON</div>
-      <div>weather.description</div>
+      <div>{weather.description}</div>
     </div>
   )
 }
